@@ -1,0 +1,245 @@
+<html>
+<head>
+	<title>Ninja Coins</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<style>
+		#final {
+			text-align: center;
+			font-weight: thin;
+			font-size: 2em;
+			border:2px solid red;
+			background-color: pink;
+		}
+		#final button {
+			padding:10px;
+			border-radius: 10px;
+			margin-bottom: 10px;
+			border:green;
+			background-color: lightgreen;
+		}
+		#directions {
+			margin-left: 600px;
+			border:2px solid blue;
+			padding:20px;
+			border-radius: 10px;
+			display: inline-block;
+			width:200px;
+		}
+
+	</style>
+</head>
+<body>
+	<div id="field" style="width:520px;height:520px;border:3px solid lightblue;background-image: url('img/back.png');display:inline-block;"><div id="directions"><h5>Ninja Coins</h5><p>Use the arrow keys to collect all the coins you can! Watch out for the monster!</p></div>
+	<div id="bad" style="position:absolute; top:300px; left:300px;"><img src="img/devil.png" style="width:40px;height:40px;"></div>
+	<div id="character" style="position:absolute; top:15px; left:15px;"><img src="img/down1.png" style="width:20px;height:20px;"></div>
+	<div id="coin" style="position:absolute; top:400px; left:400px;"><img src="img/coin.png" style="width:30px;height:30px;"></div>
+	</div>
+	<h4 style="font-size:1.5em;margin-left:30px;color:gold;border:3px solid silver;width:300px;padding:15px;border-radius:10px;">Score: <span id="score"></span></h4>
+	<script>
+
+	var score = 0;
+	function gameLoop()
+	{
+		$('#score').html(score);
+		$('#character').css({left:x,top:y}); 
+			a = randomNum();
+			b = randomNum();
+		$('#bad').animate({
+			left:a,
+			top:b}, 700);
+		if (collideBad()) {
+			$('#bad').detach();
+			$('#character').detach();
+			$('#coin').detach();
+			$('#field').html('<div id="final"><h3>You Lose!</h3><h3>Final Score: ' + score + '</h3><button id="retry">Retry</button></div>');
+			clearInterval(myIntID);
+		}
+		if (collideGood()) {
+			var d = randomNum();
+			var e = randomNum();
+			$('#coin').css({left:d,top:e});
+			score += 5;
+		}
+
+		
+	}
+
+	$(document).on('click','#retry',function(){
+		location.reload();
+	});
+
+	function randomNum() {
+		return Math.floor(Math.random() * (495 - 5 + 1)) + 5;
+	}
+
+	function collideBad () {
+		var poschar = $('#character').offset();
+		var posbad = $('#bad').offset();
+		var posleft = poschar.left - posbad.left;
+		var postop = poschar.top - posbad.top;
+		if (posleft >= -35 && posleft <= 35 && postop >= -40 && postop <= 40) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	function collideGood() {
+		var poscoin = $('#coin').offset();
+		var poschar = $('#character').offset();
+		var posleft = poschar.left - poscoin.left;
+		var postop = poschar.top - poscoin.top;
+		if (posleft >= -20 && posleft <= 20 && postop >= -20 && postop <= 20) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	var myIntID = setInterval(gameLoop, 100);
+	var a = 300, b = 300;
+	var count = 0;
+
+	document.onkeyup= function(e) {
+		count += 1;
+
+		if (count == 2) {
+			count = 0;
+			
+		}
+	}
+
+
+	var x=15, y=15;
+	var walk = 0;
+	document.onkeydown = function(e)
+	{
+		if (x < 495 && x > 5) {
+			if(e.keyCode == 37)
+			{
+			
+				x = x-5;
+				if (walk == 0) {
+					$('#character').html('<img src="img/left1.png" style="width:20px;height:20px;">');
+					walk += 1;	
+				}
+				else {
+					$('#character').html('<img src="img/left2.png" style="width:20px;height:20px;">');
+					walk = 0;
+					
+				}
+				
+			}
+			else if(e.keyCode == 39)
+			{
+				x = x+5;
+				if (walk == 0){
+					$('#character').html('<img src="img/right1.png" style="width:20px;height:20px;">');
+					walk = 1;
+				}
+				else
+				{
+					$('#character').html('<img src="img/right2.png" style="width:20px;height:20px;">');
+					walk = 0;
+				}
+			}
+		}
+		else if (x < 495){
+			if(e.keyCode == 39)
+			{
+				
+				x = x+5;
+				if (walk == 0){
+					$('#character').html('<img src="img/right1.png" style="width:20px;height:20px;">');
+					walk = 1;
+				}
+				else
+				{
+					$('#character').html('<img src="img/right2.png" style="width:20px;height:20px;">');
+					walk = 0;
+				}
+			}
+		}
+		else if (x > 5)
+		{
+			if(e.keyCode == 37)
+			{
+				
+				x = x-5;
+				if (walk == 0) {
+					$('#character').html('<img src="img/left1.png" style="width:20px;height:20px;">');
+					walk = 1;	
+				}
+				else {
+					$('#character').html('<img src="img/left2.png" style="width:20px;height:20px;">');
+					walk = 0;
+				}
+			}
+		}
+		if (y < 495 && y > 5){
+			if(e.keyCode == 40)
+			{
+				y = y+5;
+				if (walk == 0) {
+					$('#character').html('<img src="img/down1.png" style="width:20px;height:20px;">');
+					walk = 1;	
+				}
+				else {
+					$('#character').html('<img src="img/down2.png" style="width:20px;height:20px;">');
+					walk = 0;
+				}
+			}
+			else if(e.keyCode == 38)
+			{
+				y = y-5;
+				if (walk == 0) {
+					$('#character').html('<img src="img/top1.png" style="width:20px;height:20px;">');
+					walk = 1;	
+				}
+				else {
+					$('#character').html('<img src="img/top2.png" style="width:20px;height:20px;">');
+					walk = 0;
+				}
+			}	
+		}
+		else if (y < 495){
+			if(e.keyCode == 40)
+			{
+				y = y+5;
+				if (walk == 0) {
+					$('#character').html('<img src="img/down1.png" style="width:20px;height:20px;">');
+					walk = 1;	
+				}
+				else {
+					$('#character').html('<img src="img/down2.png" style="width:20px;height:20px;">');
+					walk = 0;
+				}
+			}	
+		}
+		else if (y > 5)
+		{
+			if(e.keyCode == 38)
+			{
+				y = y-5;
+				if (walk == 0) {
+					$('#character').html('<img src="img/top1.png" style="width:20px;height:20px;">');
+					walk = 1;	
+				}
+				else {
+					$('#character').html('<img src="img/top2.png" style="width:20px;height:20px;">');
+					walk = 0;
+				}
+			}
+		}
+		
+
+		
+	}
+
+
+	</script>
+
+</body>
+</html>
