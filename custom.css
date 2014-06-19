@@ -1,7 +1,7 @@
 #overall {
 		width: 780px;
 		height: 1000px;
-		margin: 0 auto;
+		margin: 10 auto;
 	}
 
 	#field, #info {
@@ -11,7 +11,7 @@
 	#field {
 		width:520px;
 		height:520px;
-		border:3px solid lightblue;
+		border:3px solid #CF8080;
 		background-image: url('img/back.png');
 		display: inline-block;
 		position: relative;
@@ -24,19 +24,21 @@
 	}
 
 		#directions {
-			border:2px solid blue;
+			border:2px solid #CF8080;
 			padding:20px;
 			border-radius: 10px;
 			width: 200px;
+			background-color: #E8E8E8;
 		}
 
 		h4 {
 			font-size:1.5em;
-			color: gold;
-			border:2px solid silver;
+			color: #CFBD00;
+			border:2px solid #CF8080;
 			width: 200px;
 			padding: 20px;
 			border-radius:10px;
+			background-color: #E8E8E8;
 		}
 
 	#level {
@@ -47,23 +49,32 @@
 		text-align: center;
 		font-weight: thin;
 		font-size: 2em;
-		border:2px solid red;
-		background-color: pink;
+		border:2px solid #CF8080;
+		background-color: #80CFCF;
 	}
 	#final button {
 		padding:10px;
 		border-radius: 10px;
 		margin-bottom: 10px;
-		border:green;
-		background-color: lightgreen;
+		border:3px solid #CF8080;
+		background-color: #E8E8E8;
 	}
 	
 
 	p {
-		font-size:0.7em;
-		color:green;
-		border:1px solid lightgreen;
+		font-size:0.8em;
 	}
+
+		#author {
+			color:#CF8080;
+		}
+
+		#code {
+			border:2px solid #CF8080;
+			padding:5px;
+			border-radius: 5px;
+			background-color: #80CFCF;
+		}
 
 	#bad {
 		position:absolute; 

@@ -1,8 +1,10 @@
 <html>
 <head>
 	<title>Ninja Coins</title>
+	<link rel="stylesheet" href="bootstrap.min.css">
 	<link rel="stylesheet" href="custom.css">
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+	<script src="jquery.js"></script>
 	<script>
 		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -15,7 +17,12 @@
 	</script>
 </head>
 <body>
+<div class="container">
 <div id="overall">
+	<div class="row">
+	<div class="col-md-2">
+		<h2>Ninja Coins <small>How many can you grab?</small></h2>
+	</div>
 	<div id="field">
 		<div id="level"></div>
 		<div id="bad"><img src="img/devil.png"></div>
@@ -30,31 +37,42 @@
 			<p> Stay in the middle to get more points!</p><p> Hold the shift key to sprint!</p>
 			<p>Press the alt key to shield yourself from the monster! No middle points for cowardice though! Move again to get rid of the shield!</p>
 			<br />
-			<p>Author: Nathan White, Ted Whang</p>
-			<p>Written in javascript to test my skills!</p>
+			<p id="author">Author: Nathan White, Ted Whang</p>
+			<p id="code">Written in javascript to test my skills!</p>
 		</div>
 		<h4>Score: <span id="score"></span></h4>
 	</div>
+	</div>
+</div>
+
 </div>
 	<script>
+	//make sure the arrow keys don't navigate
 	window.addEventListener("keydown", function(e) {
     // space and arrow keys
 	    if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
 	        e.preventDefault();
 	    }
 	}, false);
+	//initialize variables
 	var shield = false;
 	var speed = 900;
 	var score = 0;
+	//game loop
 	function gameLoop()
 	{
+		//display score
 		$('#score').html(score);
+		//move character
 		$('#character').css({left:x,top:y});
-			a = randomNum();
-			b = randomNum();
+		//get random numbers for bad guy
+		a = randomNum();
+		b = randomNum();
+		//animate bad guy
 		$('#bad').animate({
 			left:a,
 			top:b}, speed);
+		//check for collision of bad guy
 		if (collideBad()) {
 			$('.bad').detach();
 			$('#character').detach();
@@ -62,20 +80,24 @@
 			$('#field').html('<div id="final"><h3>You Lose!</h3><h3>Final Score: ' + score + '</h3><button id="retry">Retry</button></div>');
 			clearInterval(myIntID);
 		}
+		//check if close to center
 		closeToCenter();
+		//check for coin collision
 		if (collideGood()) {
 			var d = randomNum();
 			var e = randomNum();
 			$('#coin').css({left:d,top:e});
 			score += 100;
 		}
-		if (score == 1000)
+		//speed up if score is higher
+		if (score == 2000)
 		{
 			$('#level').html('<h3 id="here">Level 2</h3>');
 			$('#here').fadeOut(2000);
 			speed = 600;
 		}
-		if (score == 2000)
+		//speed up if score is higher
+		if (score == 4000)
 		{
 			$('#level').html('<h3 id="here1">Level 3</h3>');
 			$('#here1').fadeOut(2000);
@@ -84,35 +106,35 @@
 		
 	}
 	
-	
+	//restart game button
 	$(document).on('click','#retry',function(){
 		location.reload();
 	});
-
+	//random number function
 	function randomNum() {
 		return Math.floor(Math.random() * (495 - 5 + 1)) + 5;
 	}
-
+	//check if close to center, increment points
 	function closeToCenter() {
 		var poschar = $('#character').position()
 		if (poschar.left >= 220 && poschar.left <= 280 && poschar.top >= 220 && poschar.top <= 280 && !shield) {
 				score += 1;
 		}
 	}
-
+	//check for bad guy collision
 	function collideBad () {
 		var poschar = $('#character').offset();
 		var posbad = $('#bad').offset();
 		var posleft = poschar.left - posbad.left;
 		var postop = poschar.top - posbad.top;
-		if (posleft >= -35 && posleft <= 35 && postop >= -40 && postop <= 40 && !shield) {
+		if (posleft >= -30 && posleft <= 30 && postop >= -35 && postop <= 35 && !shield) {
 			return true;
 		}
 		else {
 			return false;
 		}
 	}
-
+	//check for coin collision
 	function collideGood() {
 		var poscoin = $('#coin').offset();
 		var poschar = $('#character').offset();
@@ -125,28 +147,27 @@
 			return false;
 		}
 	}
-
+	//start game loop
 	var myIntID = setInterval(gameLoop, 10);
-	var a = 300, b = 300;
-	
-	
-	
-	
+	//initialize starting points, and walking image set
+	var a = 300, b = 300;	
 	var x=15, y=15;
 	var walk = 0;
-
-
+	//check keys
 	document.onkeydown = function(e)
 	{
+		//see if shield is on
 		if (e.altKey == true) {
-					$('#character').css('border','2px solid green');
+					$('#character').css('border','2px solid #CF8080');
 					$('#character').css('border-radius','20px');
 					$('#character').css('padding','5px');
 					shield = true;
 				}
+		//if not do the rest
 		else {
 			shield = false;
 			$('#character').css('border','');
+		//check to see what direction and if he is sprinting and what image to use
 		if (x < 495 && x > 5) {
 			if(e.keyCode == 37)
 			{
