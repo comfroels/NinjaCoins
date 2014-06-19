@@ -1,0 +1,98 @@
+#overall {
+		width: 780px;
+		height: 1000px;
+		margin: 0 auto;
+	}
+
+	#field, #info {
+		vertical-align: top;
+	}
+
+	#field {
+		width:520px;
+		height:520px;
+		border:3px solid lightblue;
+		background-image: url('img/back.png');
+		display: inline-block;
+		position: relative;
+	}
+	
+	#info {
+		height: 200px;
+		width: 250px;
+		display: inline-block;
+	}
+
+		#directions {
+			border:2px solid blue;
+			padding:20px;
+			border-radius: 10px;
+			width: 200px;
+		}
+
+		h4 {
+			font-size:1.5em;
+			color: gold;
+			border:2px solid silver;
+			width: 200px;
+			padding: 20px;
+			border-radius:10px;
+		}
+
+	#level {
+		display: inline-block;
+	}
+
+	#final {
+		text-align: center;
+		font-weight: thin;
+		font-size: 2em;
+		border:2px solid red;
+		background-color: pink;
+	}
+	#final button {
+		padding:10px;
+		border-radius: 10px;
+		margin-bottom: 10px;
+		border:green;
+		background-color: lightgreen;
+	}
+	
+
+	p {
+		font-size:0.7em;
+		color:green;
+		border:1px solid lightgreen;
+	}
+
+	#bad {
+		position:absolute; 
+		top:300px; 
+		left:300px;
+	}
+		#bad img {
+			 width:40px;
+			 height:40px;
+		}
+
+	#character {
+		 position:absolute; 
+		 top:15px; 
+		 left:15px;
+	}
+
+		#character img {
+			 width:20px;
+			 height:20px;
+		}
+	
+	#coin {
+		position:absolute; 
+		top:400px; 
+		left:400px;
+	}
+
+		#coin img {
+			 width:30px;
+			 height:30px;
+		}

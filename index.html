@@ -1,6 +1,7 @@
 <html>
 <head>
 	<title>Ninja Coins</title>
+	<link rel="stylesheet" href="custom.css">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script>
 		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -12,41 +13,29 @@
 		  ga('send', 'pageview');
 
 	</script>
-	<style>
-		#final {
-			text-align: center;
-			font-weight: thin;
-			font-size: 2em;
-			border:2px solid red;
-			background-color: pink;
-		}
-		#final button {
-			padding:10px;
-			border-radius: 10px;
-			margin-bottom: 10px;
-			border:green;
-			background-color: lightgreen;
-		}
-		#directions {
-			position:absolute;
-			left:550px;
-			top:30px;
-			border:2px solid blue;
-			padding:20px;
-			border-radius: 10px;
-			display: inline-block;
-			width:200px;
-		}
-
-	</style>
 </head>
 <body>
-	<div id="field" style="width:520px;height:520px;border:3px solid lightblue;background-image: url('img/back.png');display:inline-block;"><div id="level"></div><div id="directions"><h5>Ninja Coins</h5><p>Use the arrow keys to collect all the coins you can!</p><p> Watch out for the monster!</p><p> Stay in the middle to get more points!</p><p> Hold the shift key to sprint!</p><p>Press the alt key to shield yourself from the monster! No middle points for cowardice though! Move again to get rid of the shield!</p><br><p style="font-size:0.7em;color:green;border:1px solid lightgreen;">Author: Nathan White</p><p style="font-size:0.7em;color:green;border:1px solid lightgreen;">Written in javascript to test my skills!</p></div>
-	<div id="bad" style="position:absolute; top:300px; left:300px;"><img src="img/devil.png" style="width:40px;height:40px;"></div>
-	<div id="character" style="position:absolute; top:15px; left:15px;"><img src="img/down1.png" style="width:20px;height:20px;"></div>
-	<div id="coin" style="position:absolute; top:400px; left:400px;"><img src="img/coin.png" style="width:30px;height:30px;"></div>
+<div id="overall">
+	<div id="field">
+		<div id="level"></div>
+		<div id="bad"><img src="img/devil.png"></div>
+		<div id="character"><img src="img/down1.png"></div>
+		<div id="coin"><img src="img/coin.png"></div>
 	</div>
-	<h4 style="font-size:1.5em;margin-left:30px;color:gold;border:3px solid silver;width:300px;padding:15px;border-radius:10px;">Score: <span id="score"></span></h4>
+	<div id="info">
+		<div id="directions">
+			<h5>Ninja Coins</h5>
+			<p>Use the arrow keys to collect all the coins you can!</p>
+			<p> Watch out for the monster!</p>
+			<p> Stay in the middle to get more points!</p><p> Hold the shift key to sprint!</p>
+			<p>Press the alt key to shield yourself from the monster! No middle points for cowardice though! Move again to get rid of the shield!</p>
+			<br />
+			<p>Author: Nathan White, Ted Whang</p>
+			<p>Written in javascript to test my skills!</p>
+		</div>
+		<h4>Score: <span id="score"></span></h4>
+	</div>
+</div>
 	<script>
 	window.addEventListener("keydown", function(e) {
     // space and arrow keys
@@ -60,7 +49,7 @@
 	function gameLoop()
 	{
 		$('#score').html(score);
-		$('#character').css({left:x,top:y}); 
+		$('#character').css({left:x,top:y});
 			a = randomNum();
 			b = randomNum();
 		$('#bad').animate({
